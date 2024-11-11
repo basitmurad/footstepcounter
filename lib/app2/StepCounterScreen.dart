@@ -1,847 +1,10 @@
-// // // // // // // import 'package:flutter/material.dart';
-// // // // // // // import 'package:get/get.dart';
-// // // // // // // import 'CircularStepProgress.dart';
-// // // // // // // import 'StepController.dart';
-// // // // // // //
-// // // // // // // class StepCounterScreen extends StatelessWidget {
-// // // // // // //   final StepController stepController = Get.put(StepController());
-// // // // // // //
-// // // // // // //   @override
-// // // // // // //   Widget build(BuildContext context) {
-// // // // // // //     return Scaffold(
-// // // // // // //       appBar: AppBar(title: Text('Step Counter')),
-// // // // // // //       body: SingleChildScrollView(
-// // // // // // //         child: Padding(
-// // // // // // //           padding: const EdgeInsets.all(20.0),
-// // // // // // //           child: Column(
-// // // // // // //             mainAxisAlignment: MainAxisAlignment.center,
-// // // // // // //             children: [
-// // // // // // //               CircularStepProgress(),
-// // // // // // //               SizedBox(height: 20),
-// // // // // // //               Obx(() => Text(
-// // // // // // //                 'Distance: ${stepController.distanceCovered.value.toStringAsFixed(2)} miles',
-// // // // // // //                 style: TextStyle(fontSize: 24),
-// // // // // // //               )),
-// // // // // // //               SizedBox(height: 20),
-// // // // // // //               Obx(() => Text(
-// // // // // // //                 'Calories: ${stepController.caloriesBurned.value.toStringAsFixed(2)} kcal',
-// // // // // // //                 style: TextStyle(fontSize: 24),
-// // // // // // //               )),
-// // // // // // //               SizedBox(height: 20),
-// // // // // // //               ElevatedButton(
-// // // // // // //                 onPressed: () {
-// // // // // // //                   stepController.startListening();
-// // // // // // //                 },
-// // // // // // //                 child: Text('Start Listening'),
-// // // // // // //               ),
-// // // // // // //               SizedBox(height: 20),
-// // // // // // //               Text(
-// // // // // // //                 'Weekly Progress:', // Removed the line chart part
-// // // // // // //                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-// // // // // // //               ),
-// // // // // // //               SizedBox(height: 20),
-// // // // // // //               // Removed StepProgressChart
-// // // // // // //             ],
-// // // // // // //           ),
-// // // // // // //         ),
-// // // // // // //       ),
-// // // // // // //     );
-// // // // // // //   }
-// // // // // // // }
-// // // // // // import 'package:flutter/material.dart';
-// // // // // // import 'package:get/get.dart';
-// // // // // // import 'StepController.dart';
-// // // // // //
-// // // // // // class StepCounterScreen extends StatelessWidget {
-// // // // // //   final StepController stepController = Get.put(StepController());
-// // // // // //
-// // // // // //   @override
-// // // // // //   Widget build(BuildContext context) {
-// // // // // //     return Scaffold(
-// // // // // //       appBar: AppBar(title: Text('Step Counter')),
-// // // // // //       body: Center(
-// // // // // //         child: Column(
-// // // // // //           mainAxisAlignment: MainAxisAlignment.center,
-// // // // // //           children: [
-// // // // // //             Obx(() => Text(
-// // // // // //               'Today\'s Steps: ${stepController.stepCount.value}',
-// // // // // //               style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-// // // // // //             )),
-// // // // // //             SizedBox(height: 20),
-// // // // // //             ElevatedButton(
-// // // // // //               onPressed: stepController.startListening,
-// // // // // //               child: Text('Start Listening'),
-// // // // // //             ),
-// // // // // //           ],
-// // // // // //         ),
-// // // // // //       ),
-// // // // // //     );
-// // // // // //   }
-// // // // // // }
-// // // // // import 'package:flutter/material.dart';
-// // // // // import 'package:get/get.dart';
-// // // // // import 'StepController.dart';
-// // // // //
-// // // // // class StepCounterScreen extends StatelessWidget {
-// // // // //   final StepController stepController = Get.put(StepController());
-// // // // //
-// // // // //   @override
-// // // // //   Widget build(BuildContext context) {
-// // // // //     return Scaffold(
-// // // // //       appBar: AppBar(title: Text('Step Counter')),
-// // // // //       body: Center(
-// // // // //         child: Column(
-// // // // //           mainAxisAlignment: MainAxisAlignment.center,
-// // // // //           children: [
-// // // // //             Obx(() => Text(
-// // // // //               'Today\'s Steps: ${stepController.stepCount.value}',
-// // // // //               style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-// // // // //             )),
-// // // // //             SizedBox(height: 20),
-// // // // //             ElevatedButton(
-// // // // //               onPressed: stepController.startListening,
-// // // // //               child: Text('Start Listening'),
-// // // // //             ),
-// // // // //             SizedBox(height: 20),
-// // // // //             Text(
-// // // // //               'Weekly Steps',
-// // // // //               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-// // // // //             ),
-// // // // //             SizedBox(height: 20),
-// // // // //             Obx(() => Wrap(
-// // // // //               spacing: 10,
-// // // // //               children: List.generate(7, (index) {
-// // // // //                 return Column(
-// // // // //                   children: [
-// // // // //                     Text(
-// // // // //                       _getDayName(index),
-// // // // //                       style: TextStyle(fontSize: 16),
-// // // // //                     ),
-// // // // //                     Text(
-// // // // //                       '${stepController.weeklySteps[index]} steps',
-// // // // //                       style: TextStyle(fontSize: 14),
-// // // // //                     ),
-// // // // //                   ],
-// // // // //                 );
-// // // // //               }),
-// // // // //             )),
-// // // // //           ],
-// // // // //         ),
-// // // // //       ),
-// // // // //     );
-// // // // //   }
-// // // // //
-// // // // //   String _getDayName(int index) {
-// // // // //     switch (index) {
-// // // // //       case 0: return 'Mon';
-// // // // //       case 1: return 'Tue';
-// // // // //       case 2: return 'Wed';
-// // // // //       case 3: return 'Thu';
-// // // // //       case 4: return 'Fri';
-// // // // //       case 5: return 'Sat';
-// // // // //       case 6: return 'Sun';
-// // // // //       default: return '';
-// // // // //     }
-// // // // //   }
-// // // // // }
-// // // // import 'dart:async';
-// // // //
-// // // // import 'package:flutter/material.dart';
-// // // // import 'package:flutter/widgets.dart';
-// // // // import 'package:permission_handler/permission_handler.dart';
-// // // // import 'package:pedometer/pedometer.dart';
-// // // //
-// // // // class StepCounterScreen extends StatefulWidget {
-// // // //   @override
-// // // //   _StepCounterScreenState createState() => _StepCounterScreenState();
-// // // // }
-// // // //
-// // // // class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindingObserver {
-// // // //   int stepCount = 0; // Today's steps
-// // // //   List<int> weeklySteps = List<int>.filled(7, 0); // Steps for each day of the week
-// // // //   int? baselineStepCount; // Baseline step count for the day
-// // // //   int currentDayIndex = DateTime.now().weekday - 1; // 0 = Monday, 6 = Sunday
-// // // //
-// // // //   late Stream<StepCount> _stepCountStream;
-// // // //   StreamSubscription<StepCount>? _stepCountSubscription;
-// // // //
-// // // //   @override
-// // // //   void initState() {
-// // // //     super.initState();
-// // // //     WidgetsBinding.instance.addObserver(this);
-// // // //     requestPermissions();
-// // // //   }
-// // // //
-// // // //   Future<void> requestPermissions() async {
-// // // //     if (await Permission.activityRecognition.request().isGranted) {
-// // // //       print("Activity recognition permission granted");
-// // // //       initializePedometer();
-// // // //     } else {
-// // // //       print("Activity recognition permission not granted");
-// // // //     }
-// // // //   }
-// // // //
-// // // //   void startListening() async {
-// // // //     if (await Permission.activityRecognition.isGranted) {
-// // // //       initializePedometer();
-// // // //     } else {
-// // // //       print("Activity recognition permission is not granted.");
-// // // //     }
-// // // //   }
-// // // //
-// // // //   Future<void> initializePedometer() async {
-// // // //     _stepCountStream = Pedometer.stepCountStream;
-// // // //     _stepCountSubscription = _stepCountStream.listen(
-// // // //           (event) {
-// // // //         print("Steps detected: ${event.steps}");
-// // // // setState(() {
-// // // //   stepCount = event.steps;
-// // // //
-// // // // });
-// // // //         onStepCount(event);
-// // // //       },
-// // // //       onError: (error) => print("Step count error: $error"),
-// // // //     );
-// // // //   }
-// // // //
-// // // //   void onStepCount(StepCount event) {
-// // // //     int todayIndex = DateTime.now().weekday - 1; // Get today's index (0 = Monday)
-// // // //     print("Current Day Index: $todayIndex");
-// // // //
-// // // //     // Reset baseline if the day has changed
-// // // //     if (todayIndex != currentDayIndex) {
-// // // //       currentDayIndex = todayIndex;
-// // // //       baselineStepCount = event.steps; // Set new baseline for today
-// // // //       setState(() {
-// // // //         weeklySteps[currentDayIndex] = 0; // Reset today's steps in the weekly array
-// // // //       });
-// // // //       print("Day changed. New baseline set to ${baselineStepCount}");
-// // // //     }
-// // // //
-// // // //     // Update daily steps by subtracting the baseline
-// // // //     if (baselineStepCount != null) {
-// // // //       setState(() {
-// // // //         weeklySteps[currentDayIndex] = event.steps - baselineStepCount!;
-// // // //         stepCount = weeklySteps[currentDayIndex];
-// // // //       });
-// // // //       print("Updated weeklySteps for today (${_getDayName(todayIndex)}): ${stepCount}");
-// // // //     }
-// // // //   }
-// // // //
-// // // //   @override
-// // // //   void didChangeAppLifecycleState(AppLifecycleState state) {
-// // // //     if (state == AppLifecycleState.resumed && _stepCountSubscription?.isPaused == true) {
-// // // //       _stepCountSubscription?.resume();
-// // // //     } else if (state == AppLifecycleState.paused) {
-// // // //       _stepCountSubscription?.pause();
-// // // //     }
-// // // //   }
-// // // //
-// // // //   @override
-// // // //   void dispose() {
-// // // //     WidgetsBinding.instance.removeObserver(this);
-// // // //     _stepCountSubscription?.cancel();
-// // // //     super.dispose();
-// // // //   }
-// // // //
-// // // //   String _getDayName(int index) {
-// // // //     switch (index) {
-// // // //       case 0: return 'Mon';
-// // // //       case 1: return 'Tue';
-// // // //       case 2: return 'Wed';
-// // // //       case 3: return 'Thu';
-// // // //       case 4: return 'Fri';
-// // // //       case 5: return 'Sat';
-// // // //       case 6: return 'Sun';
-// // // //       default: return '';
-// // // //     }
-// // // //   }
-// // // //
-// // // //   @override
-// // // //   Widget build(BuildContext context) {
-// // // //     return Scaffold(
-// // // //       appBar: AppBar(title: Text('Step Counter')),
-// // // //       body: Center(
-// // // //         child: Column(
-// // // //           mainAxisAlignment: MainAxisAlignment.center,
-// // // //           children: [
-// // // //             Text(
-// // // //               'Today\'s Steps: $stepCount',
-// // // //               style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-// // // //             ),
-// // // //             SizedBox(height: 20),
-// // // //             ElevatedButton(
-// // // //               onPressed: startListening,
-// // // //               child: Text('Start Listening'),
-// // // //             ),
-// // // //             SizedBox(height: 20),
-// // // //             Text(
-// // // //               'Weekly Steps',
-// // // //               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-// // // //             ),
-// // // //             SizedBox(height: 20),
-// // // //             Wrap(
-// // // //               spacing: 10,
-// // // //               children: List.generate(7, (index) {
-// // // //                 return Column(
-// // // //                   children: [
-// // // //                     Text(
-// // // //                       _getDayName(index),
-// // // //                       style: TextStyle(fontSize: 16),
-// // // //                     ),
-// // // //                     Text(
-// // // //                       '${weeklySteps[index]} steps',
-// // // //                       style: TextStyle(fontSize: 14),
-// // // //                     ),
-// // // //                   ],
-// // // //                 );
-// // // //               }),
-// // // //             ),
-// // // //           ],
-// // // //         ),
-// // // //       ),
-// // // //     );
-// // // //   }
-// // // // }
-// // // import 'dart:async';
-// // // import 'package:flutter/material.dart';
-// // // import 'package:permission_handler/permission_handler.dart';
-// // // import 'package:pedometer/pedometer.dart';
-// // //
-// // // class StepCounterScreen extends StatefulWidget {
-// // //   @override
-// // //   _StepCounterScreenState createState() => _StepCounterScreenState();
-// // // }
-// // //
-// // // class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindingObserver {
-// // //   int stepCount = 0; // Today's steps
-// // //   List<int> weeklySteps = List<int>.filled(7, 0); // Steps for each day of the week
-// // //   int? baselineStepCount; // Baseline step count for the day
-// // //   int currentDayIndex = DateTime.now().weekday - 1; // 0 = Monday, 6 = Sunday
-// // //
-// // //   late Stream<StepCount> _stepCountStream;
-// // //   StreamSubscription<StepCount>? _stepCountSubscription;
-// // //
-// // //   @override
-// // //   void initState() {
-// // //     super.initState();
-// // //     WidgetsBinding.instance.addObserver(this);
-// // //     requestPermissions();
-// // //   }
-// // //
-// // //   Future<void> requestPermissions() async {
-// // //     if (await Permission.activityRecognition.request().isGranted) {
-// // //       print("Activity recognition permission granted");
-// // //       initializePedometer();
-// // //     } else {
-// // //       print("Activity recognition permission not granted");
-// // //     }
-// // //   }
-// // //
-// // //   void startListening() async {
-// // //     if (await Permission.activityRecognition.isGranted) {
-// // //       initializePedometer();
-// // //     } else {
-// // //       print("Activity recognition permission is not granted.");
-// // //     }
-// // //   }
-// // //
-// // //   Future<void> initializePedometer() async {
-// // //     _stepCountStream = Pedometer.stepCountStream;
-// // //     _stepCountSubscription = _stepCountStream.listen(
-// // //           (event) {
-// // //         print("Steps detected: ${event.steps}");
-// // //         onStepCount(event);
-// // //       },
-// // //       onError: (error) => print("Step count error: $error"),
-// // //     );
-// // //   }
-// // //   void onStepCount(StepCount event) {
-// // //     int todayIndex = DateTime.now().weekday - 1; // Get today's index (0 = Monday)
-// // //     print("Steps detected: ${event.steps}");
-// // //     print("Current Day Index: $todayIndex");
-// // //
-// // //     // Initialize baseline if it's null (first time the app runs for the day)
-// // //     if (baselineStepCount == null) {
-// // //       baselineStepCount = event.steps;
-// // //       print("Initial baseline set to $baselineStepCount for the day.");
-// // //     }
-// // //
-// // //     // Check if the day has changed
-// // //     if (todayIndex != currentDayIndex) {
-// // //       print("Day has changed. Setting new baseline.");
-// // //       currentDayIndex = todayIndex;
-// // //       baselineStepCount = event.steps; // Reset baseline for the new day
-// // //       setState(() {
-// // //         weeklySteps[currentDayIndex] = 0; // Reset today's steps in weekly array
-// // //         stepCount = 0; // Reset today's step count in UI
-// // //       });
-// // //     }
-// // //
-// // //     // Update today's steps based on the new step count and baseline
-// // //     if (baselineStepCount != null) {
-// // //       int calculatedSteps = event.steps - baselineStepCount!;
-// // //       if (calculatedSteps != weeklySteps[currentDayIndex]) { // Update only if changed
-// // //         setState(() {
-// // //           weeklySteps[currentDayIndex] = calculatedSteps;
-// // //           stepCount = calculatedSteps;
-// // //         });
-// // //         print("Updated weeklySteps for today (${_getDayName(todayIndex)}): ${weeklySteps[currentDayIndex]}");
-// // //       }
-// // //     } else {
-// // //       print("Error: Baseline step count is null.");
-// // //     }
-// // //   }
-// // //
-// // //
-// // //
-// // //
-// // //   @override
-// // //   void didChangeAppLifecycleState(AppLifecycleState state) {
-// // //     if (state == AppLifecycleState.resumed && _stepCountSubscription?.isPaused == true) {
-// // //       _stepCountSubscription?.resume();
-// // //     } else if (state == AppLifecycleState.paused) {
-// // //       _stepCountSubscription?.pause();
-// // //     }
-// // //   }
-// // //
-// // //   @override
-// // //   void dispose() {
-// // //     WidgetsBinding.instance.removeObserver(this);
-// // //     _stepCountSubscription?.cancel();
-// // //     super.dispose();
-// // //   }
-// // //
-// // //   String _getDayName(int index) {
-// // //     switch (index) {
-// // //       case 0: return 'Mon';
-// // //       case 1: return 'Tue';
-// // //       case 2: return 'Wed';
-// // //       case 3: return 'Thu';
-// // //       case 4: return 'Fri';
-// // //       case 5: return 'Sat';
-// // //       case 6: return 'Sun';
-// // //       default: return '';
-// // //     }
-// // //   }
-// // //
-// // //   @override
-// // //   Widget build(BuildContext context) {
-// // //     return Scaffold(
-// // //       appBar: AppBar(title: Text('Step Counter')),
-// // //       body: Center(
-// // //         child: Column(
-// // //           mainAxisAlignment: MainAxisAlignment.center,
-// // //           children: [
-// // //             Text(
-// // //               'Today\'s Steps: $stepCount',
-// // //               style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-// // //             ),
-// // //             SizedBox(height: 20),
-// // //             ElevatedButton(
-// // //               onPressed: startListening,
-// // //               child: Text('Start Listening'),
-// // //             ),
-// // //             SizedBox(height: 20),
-// // //             Text(
-// // //               'Weekly Steps',
-// // //               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-// // //             ),
-// // //             SizedBox(height: 20),
-// // //             Wrap(
-// // //               spacing: 10,
-// // //               children: List.generate(7, (index) {
-// // //                 return Column(
-// // //                   children: [
-// // //                     Text(
-// // //                       _getDayName(index),
-// // //                       style: TextStyle(fontSize: 16),
-// // //                     ),
-// // //                     Text(
-// // //                       '${weeklySteps[index]} steps',
-// // //                       style: TextStyle(fontSize: 14),
-// // //                     ),
-// // //                   ],
-// // //                 );
-// // //               }),
-// // //             ),
-// // //           ],
-// // //         ),
-// // //       ),
-// // //     );
-// // //   }
-// // // }
-// // import 'dart:async';
-// // import 'package:flutter/material.dart';
-// // import 'package:permission_handler/permission_handler.dart';
-// // import 'package:pedometer/pedometer.dart';
-// //
-// // class StepCounterScreen extends StatefulWidget {
-// //   @override
-// //   _StepCounterScreenState createState() => _StepCounterScreenState();
-// // }
-// //
-// // class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindingObserver {
-// //   int stepCount = 0; // Today's steps
-// //   List<int> weeklySteps = List<int>.filled(7, 0); // Steps for each day of the week
-// //   int? baselineStepCount; // Baseline step count for the day
-// //   int currentDayIndex = DateTime.now().weekday - 1; // 0 = Monday, 6 = Sunday
-// //
-// //   late Stream<StepCount> _stepCountStream;
-// //   StreamSubscription<StepCount>? _stepCountSubscription;
-// //
-// //   @override
-// //   void initState() {
-// //     super.initState();
-// //     WidgetsBinding.instance.addObserver(this);
-// //     requestPermissions();
-// //   }
-// //
-// //   Future<void> requestPermissions() async {
-// //     if (await Permission.activityRecognition.request().isGranted) {
-// //       print("Activity recognition permission granted");
-// //       initializePedometer();
-// //     } else {
-// //       print("Activity recognition permission not granted");
-// //     }
-// //   }
-// //
-// //   void startListening() async {
-// //     if (await Permission.activityRecognition.isGranted) {
-// //       initializePedometer();
-// //     } else {
-// //       print("Activity recognition permission is not granted.");
-// //     }
-// //   }
-// //
-// //   void stopListening() {
-// //     _stepCountSubscription?.cancel();
-// //     _stepCountSubscription = null;
-// //     _stepCountStream = null; // Set to null after stopping
-// //     print("Stopped tracking footsteps and cleared pedometer stream.");
-// //   }
-// //   // void stopListening() {
-// //   //   _stepCountSubscription?.cancel();
-// //   //   _stepCountSubscription = null; // Reset the subscription variable
-// //   //   print("Stopped tracking footsteps.");
-// //   // }
-// //
-// //   Future<void> initializePedometer() async {
-// //     _stepCountStream = Pedometer.stepCountStream;
-// //     _stepCountSubscription = _stepCountStream.listen(
-// //           (event) {
-// //         print("Steps detected: ${event.steps}");
-// //         onStepCount(event);
-// //       },
-// //       onError: (error) => print("Step count error: $error"),
-// //     );
-// //   }
-// //
-// //   void onStepCount(StepCount event) {
-// //     int todayIndex = DateTime.now().weekday - 1; // Get today's index (0 = Monday)
-// //     print("Steps detected: ${event.steps}");
-// //     print("Current Day Index: $todayIndex");
-// //
-// //     // Initialize baseline if it's null (first time the app runs for the day)
-// //     if (baselineStepCount == null) {
-// //       baselineStepCount = event.steps;
-// //       print("Initial baseline set to $baselineStepCount for the day.");
-// //     }
-// //
-// //     // Check if the day has changed
-// //     if (todayIndex != currentDayIndex) {
-// //       print("Day has changed. Setting new baseline.");
-// //       currentDayIndex = todayIndex;
-// //       baselineStepCount = event.steps; // Reset baseline for the new day
-// //       setState(() {
-// //         weeklySteps[currentDayIndex] = 0; // Reset today's steps in weekly array
-// //         stepCount = 0; // Reset today's step count in UI
-// //       });
-// //     }
-// //
-// //     // Update today's steps based on the new step count and baseline
-// //     if (baselineStepCount != null) {
-// //       int calculatedSteps = event.steps - baselineStepCount!;
-// //       if (calculatedSteps != weeklySteps[currentDayIndex]) { // Update only if changed
-// //         setState(() {
-// //           weeklySteps[currentDayIndex] = calculatedSteps;
-// //           stepCount = calculatedSteps;
-// //         });
-// //         print("Updated weeklySteps for today (${_getDayName(todayIndex)}): ${weeklySteps[currentDayIndex]}");
-// //       }
-// //     } else {
-// //       print("Error: Baseline step count is null.");
-// //     }
-// //   }
-// //
-// //   @override
-// //   void didChangeAppLifecycleState(AppLifecycleState state) {
-// //     if (state == AppLifecycleState.resumed && _stepCountSubscription?.isPaused == true) {
-// //       _stepCountSubscription?.resume();
-// //     } else if (state == AppLifecycleState.paused) {
-// //       _stepCountSubscription?.pause();
-// //     }
-// //   }
-// //
-// //   @override
-// //   void dispose() {
-// //     WidgetsBinding.instance.removeObserver(this);
-// //     _stepCountSubscription?.cancel();
-// //     super.dispose();
-// //   }
-// //
-// //   String _getDayName(int index) {
-// //     switch (index) {
-// //       case 0: return 'Mon';
-// //       case 1: return 'Tue';
-// //       case 2: return 'Wed';
-// //       case 3: return 'Thu';
-// //       case 4: return 'Fri';
-// //       case 5: return 'Sat';
-// //       case 6: return 'Sun';
-// //       default: return '';
-// //     }
-// //   }
-// //
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return Scaffold(
-// //       appBar: AppBar(title: Text('Step Counter')),
-// //       body: Center(
-// //         child: Column(
-// //           mainAxisAlignment: MainAxisAlignment.center,
-// //           children: [
-// //             Text(
-// //               'Today\'s Steps: $stepCount',
-// //               style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-// //             ),
-// //             SizedBox(height: 20),
-// //             ElevatedButton(
-// //               onPressed: startListening,
-// //               child: Text('Start Listening'),
-// //             ),
-// //             SizedBox(height: 10),
-// //             ElevatedButton(
-// //               onPressed: stopListening,
-// //               child: Text('Stop Listening'),
-// //               style: ElevatedButton.styleFrom(
-// //                 backgroundColor: Colors.red, // Set stop button color to red
-// //               ),
-// //             ),
-// //             SizedBox(height: 20),
-// //             Text(
-// //               'Weekly Steps',
-// //               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-// //             ),
-// //             SizedBox(height: 20),
-// //             Wrap(
-// //               spacing: 10,
-// //               children: List.generate(7, (index) {
-// //                 return Column(
-// //                   children: [
-// //                     Text(
-// //                       _getDayName(index),
-// //                       style: TextStyle(fontSize: 16),
-// //                     ),
-// //                     Text(
-// //                       '${weeklySteps[index]} steps',
-// //                       style: TextStyle(fontSize: 14),
-// //                     ),
-// //                   ],
-// //                 );
-// //               }),
-// //             ),
-// //           ],
-// //         ),
-// //       ),
-// //     );
-// //   }
-// // }
-// import 'dart:async';
-// import 'package:flutter/material.dart';
-// import 'package:permission_handler/permission_handler.dart';
-// import 'package:pedometer/pedometer.dart';
-//
-// class StepCounterScreen extends StatefulWidget {
-//   @override
-//   _StepCounterScreenState createState() => _StepCounterScreenState();
-// }
-//
-// class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindingObserver {
-//   int stepCount = 0; // Today's steps
-//   List<int> weeklySteps = List<int>.filled(7, 0); // Steps for each day of the week
-//   int? baselineStepCount; // Baseline step count for the day
-//   int currentDayIndex = DateTime.now().weekday - 1; // 0 = Monday, 6 = Sunday
-//
-//   Stream<StepCount>? _stepCountStream; // Made nullable
-//   StreamSubscription<StepCount>? _stepCountSubscription;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     WidgetsBinding.instance.addObserver(this);
-//     requestPermissions();
-//   }
-//
-//   Future<void> requestPermissions() async {
-//     if (await Permission.activityRecognition.request().isGranted) {
-//       print("Activity recognition permission granted");
-//       initializePedometer();
-//     } else {
-//       print("Activity recognition permission not granted");
-//     }
-//   }
-//
-//   void startListening() async {
-//     if (await Permission.activityRecognition.isGranted) {
-//       initializePedometer();
-//     } else {
-//       print("Activity recognition permission is not granted.");
-//     }
-//   }
-//
-//   void stopListening() {
-//     _stepCountSubscription?.cancel();
-//     _stepCountSubscription = null;
-//     _stepCountStream = null; // Set to null after stopping
-//     print("Stopped tracking footsteps and cleared pedometer stream.");
-//   }
-//
-//   Future<void> initializePedometer() async {
-//     _stepCountStream = Pedometer.stepCountStream;
-//     _stepCountSubscription = _stepCountStream!.listen(
-//           (event) {
-//         print("Steps detected: ${event.steps}");
-//         onStepCount(event);
-//       },
-//       onError: (error) => print("Step count error: $error"),
-//     );
-//   }
-//
-//   void onStepCount(StepCount event) {
-//     int todayIndex = DateTime.now().weekday - 1; // Get today's index (0 = Monday)
-//     print("Steps detected: ${event.steps}");
-//     print("Current Day Index: $todayIndex");
-//
-//     // Initialize baseline if it's null (first time the app runs for the day)
-//     if (baselineStepCount == null) {
-//       baselineStepCount = event.steps;
-//       print("Initial baseline set to $baselineStepCount for the day.");
-//     }
-//
-//     // Check if the day has changed
-//     if (todayIndex != currentDayIndex) {
-//       print("Day has changed. Setting new baseline.");
-//       currentDayIndex = todayIndex;
-//       baselineStepCount = event.steps; // Reset baseline for the new day
-//       setState(() {
-//         weeklySteps[currentDayIndex] = 0; // Reset today's steps in weekly array
-//         stepCount = 0; // Reset today's step count in UI
-//       });
-//     }
-//
-//     // Update today's steps based on the new step count and baseline
-//     if (baselineStepCount != null) {
-//       int calculatedSteps = event.steps - baselineStepCount!;
-//       if (calculatedSteps != weeklySteps[currentDayIndex]) { // Update only if changed
-//         setState(() {
-//           weeklySteps[currentDayIndex] = calculatedSteps;
-//           stepCount = calculatedSteps;
-//         });
-//         print("Updated weeklySteps for today (${_getDayName(todayIndex)}): ${weeklySteps[currentDayIndex]}");
-//       }
-//     } else {
-//       print("Error: Baseline step count is null.");
-//     }
-//   }
-//
-//   @override
-//   void didChangeAppLifecycleState(AppLifecycleState state) {
-//     if (state == AppLifecycleState.resumed && _stepCountSubscription?.isPaused == true) {
-//       _stepCountSubscription?.resume();
-//     } else if (state == AppLifecycleState.paused) {
-//       _stepCountSubscription?.pause();
-//     }
-//   }
-//
-//   @override
-//   void dispose() {
-//     WidgetsBinding.instance.removeObserver(this);
-//     _stepCountSubscription?.cancel();
-//     super.dispose();
-//   }
-//
-//   String _getDayName(int index) {
-//     switch (index) {
-//       case 0: return 'Mon';
-//       case 1: return 'Tue';
-//       case 2: return 'Wed';
-//       case 3: return 'Thu';
-//       case 4: return 'Fri';
-//       case 5: return 'Sat';
-//       case 6: return 'Sun';
-//       default: return '';
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: Text('Step Counter')),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Text(
-//               'Today\'s Steps: $stepCount',
-//               style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-//             ),
-//             SizedBox(height: 20),
-//             ElevatedButton(
-//               onPressed: startListening,
-//               child: Text('Start Listening'),
-//             ),
-//             SizedBox(height: 10),
-//             ElevatedButton(
-//               onPressed: stopListening,
-//               child: Text('Stop Listening'),
-//               style: ElevatedButton.styleFrom(
-//                 backgroundColor: Colors.red, // Set stop button color to red
-//               ),
-//             ),
-//             SizedBox(height: 20),
-//             Text(
-//               'Weekly Steps',
-//               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-//             ),
-//             SizedBox(height: 20),
-//             Wrap(
-//               spacing: 10,
-//               children: List.generate(7, (index) {
-//                 return Column(
-//                   children: [
-//                     Text(
-//                       _getDayName(index),
-//                       style: TextStyle(fontSize: 16),
-//                     ),
-//                     Text(
-//                       '${weeklySteps[index]} steps',
-//                       style: TextStyle(fontSize: 14),
-//                     ),
-//                   ],
-//                 );
-//               }),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pedometer/pedometer.dart';
+
+import 'SharedPrefsHelper.dart';
 
 class StepCounterScreen extends StatefulWidget {
   @override
@@ -857,13 +20,17 @@ class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindi
   Duration elapsedTime = Duration.zero; // Duration of the walking session
   Timer? _timer; // Timer for tracking elapsed time
   bool isTracking = false;
+  static const int dailyStepTarget = 20000; // Target steps per day
 
   Stream<StepCount>? _stepCountStream;
   StreamSubscription<StepCount>? _stepCountSubscription;
+  List<double> weeklyCalories = List<double>.filled(7, 0.0);
 
   @override
   void initState() {
     super.initState();
+    loadSavedData();
+
     WidgetsBinding.instance.addObserver(this);
     requestPermissions();
   }
@@ -885,7 +52,7 @@ class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindi
       print("Activity recognition permission is not granted.");
     }
   }
-//qweqwe
+
   void stopListening() {
     _stepCountSubscription?.cancel();
     _stepCountSubscription = null;
@@ -893,6 +60,7 @@ class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindi
     stopTimer();
     print("Stopped tracking footsteps and cleared pedometer stream.");
   }
+
 
   Future<void> initializePedometer() async {
     _stepCountStream = Pedometer.stepCountStream;
@@ -907,16 +75,11 @@ class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindi
 
   void onStepCount(StepCount event) {
     int todayIndex = DateTime.now().weekday - 1;
-    print("Steps detected: ${event.steps}");
-    print("Current Day Index: $todayIndex");
-
     if (baselineStepCount == null) {
       baselineStepCount = event.steps;
-      print("Initial baseline set to $baselineStepCount for the day.");
     }
 
     if (todayIndex != currentDayIndex) {
-      print("Day has changed. Setting new baseline.");
       currentDayIndex = todayIndex;
       baselineStepCount = event.steps;
       setState(() {
@@ -935,24 +98,28 @@ class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindi
           stepCount = calculatedSteps;
           distance = calculatedSteps * 0.762; // Average stride length in meters
         });
-        print("Updated weeklySteps for today (${_getDayName(todayIndex)}): ${weeklySteps[currentDayIndex]}");
       }
-    } else {
-      print("Error: Baseline step count is null.");
     }
+
+
+
+    double caloriesBurned = calculateCalories(stepCount);
+    print('Calories burned: $caloriesBurned');
   }
+
 
   void startTimer() {
     _timer?.cancel();
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
-        elapsedTime += Duration(seconds: 1);
+        elapsedTime += Duration(seconds: 1);  // Update elapsed time
       });
     });
     setState(() {
-      isTracking = true;
+      isTracking = true;  // Indicate that the tracking is started
     });
   }
+
 
   void stopTimer() {
     _timer?.cancel();
@@ -972,6 +139,8 @@ class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindi
 
   @override
   void dispose() {
+    saveData(); // Save data on dispose
+
     WidgetsBinding.instance.removeObserver(this);
     _stepCountSubscription?.cancel();
     _timer?.cancel();
@@ -979,86 +148,216 @@ class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindi
   }
 
   String _getDayName(int index) {
-    switch (index) {
-      case 0: return 'Mon';
-      case 1: return 'Tue';
-      case 2: return 'Wed';
-      case 3: return 'Thu';
-      case 4: return 'Fri';
-      case 5: return 'Sat';
-      case 6: return 'Sun';
-      default: return '';
-    }
+    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    return days[index];
   }
 
+  double calculateCalories(int steps) {
+    const double caloriesPerStep = 0.04;  // Estimated calories per step
+    return steps * caloriesPerStep;
+  }
   String formatElapsedTime(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+    int hours = duration.inHours;
+    int minutes = duration.inMinutes.remainder(60);
+    int seconds = duration.inSeconds.remainder(60);
+    return "$hours:${twoDigits(minutes)}:${twoDigits(seconds)}";
   }
+
+
+
+  // Store steps and calories for each day at midnight
+  void storeDailyData() async {
+    int todayIndex = DateTime.now().weekday - 1;
+    weeklySteps[todayIndex] = stepCount;
+    weeklyCalories[todayIndex] = calculateCalories(stepCount);
+    await saveData();
+  }
+
+  // Reset weekly data at 12:00 am every Sunday
+  void scheduleWeeklyReset() {
+    final now = DateTime.now();
+    final nextSundayMidnight = DateTime(now.year, now.month, now.day, 0, 0).add(Duration(days: 7 - now.weekday));
+    final durationUntilReset = nextSundayMidnight.difference(now);
+
+    Timer(durationUntilReset, () {
+      weeklySteps.fillRange(0, 7, 0);
+      weeklyCalories.fillRange(0, 7, 0.0);
+      saveData();  // Save reset data
+      scheduleWeeklyReset();  // Schedule the next weekly reset
+    });
+  }
+
+  // Save and load functions to persist weekly data
+  Future<void> saveData() async {
+    await SharedPrefsHelper.saveWeeklySteps(weeklySteps);
+    await SharedPrefsHelper.saveWeeklyCalories(weeklyCalories);
+  }
+
+  Future<void> loadSavedData() async {
+    weeklySteps = await SharedPrefsHelper.getWeeklySteps();
+    weeklyCalories = await SharedPrefsHelper.getWeeklyCalories();
+    setState(() {});
+  }
+
 
   @override
   Widget build(BuildContext context) {
+    double progress = (stepCount / dailyStepTarget).clamp(0, 1); // Progress towards daily target
+
     return Scaffold(
       appBar: AppBar(title: Text('Step Counter')),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Today\'s Steps: $stepCount',
-              style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Distance: ${distance.toStringAsFixed(2)} meters',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(height: 10),
-            Text(
-              'Elapsed Time: ${formatElapsedTime(elapsedTime)}',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: isTracking ? null : startListening,
-              child: Text('Start Listening'),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: isTracking ? stopListening : null,
-              child: Text('Stop Listening'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ProgressContainer(
+                    label: '${calculateCalories(stepCount)}', // Show calories
+                    value: 'Kcal',
+                  ),
+                  ProgressContainer(
+                    label: '${formatElapsedTime(elapsedTime)}', // Show elapsed time
+                    value: 'Time',
+                  ),
+                  ProgressContainer(
+                    label: '${stepCount}', // Show steps count
+                    value: 'Steps',
+                  ),
+                ],
               ),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Weekly Steps',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
-            Wrap(
-              spacing: 10,
-              children: List.generate(7, (index) {
-                return Column(
-                  children: [
-                    Text(
-                      _getDayName(index),
-                      style: TextStyle(fontSize: 16),
+
+
+              // Display today's total step count in a large font
+              Text(
+                'Today\'s Steps',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 20),
+              // Circular progress indicator with step count
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Circular progress indicator
+                  SizedBox(
+                    width: 200,
+                    height: 200,
+                    child: CircularProgressIndicator(
+                      value: progress,               // Set progress as step count percentage of target
+                      strokeWidth: 15,               // Make the circle stroke bold
+                      backgroundColor: Colors.grey[300], // Background for unachieved progress
+                      color: Colors.orange,            // Progress color
                     ),
-                    Text(
-                      '${weeklySteps[index]} steps',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ],
-                );
-              }),
-            ),
-          ],
+                  ),
+                  // Centered step count text
+                  Text(
+                    '$stepCount',                  // Display today's steps count only
+                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 20),
+              // // Start and stop buttons
+              ElevatedButton(
+                onPressed: isTracking ? null : startListening,
+                child: Text('Start Listening'),
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: isTracking ? stopListening : null,
+                child: Text('Stop Listening'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                ),
+              ),
+              SizedBox(height: 20),
+              // Weekly steps section
+              Text(
+                'Weekly Steps',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 20),
+              Wrap(
+                spacing: 10,
+                children: List.generate(7, (index) {
+                  // Calculate the progress towards the daily step target for each day
+                  double dayProgress = (weeklySteps[index] / dailyStepTarget).clamp(0, 1);
+
+                  return Column(
+                    children: [
+                      Text(
+                        _getDayName(index),
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      SizedBox(height: 8),
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          // Circular progress indicator
+                          SizedBox(
+                            width: 50,  // Set the size of the progress circle
+                            height: 50,
+                            child: CircularProgressIndicator(
+                              value: dayProgress,           // Set progress for the day
+                              strokeWidth: 6,               // Width of the progress indicator
+                              backgroundColor: Colors.grey[300],  // Unachieved progress color
+                              color: Colors.blue,           // Progress color (customize as needed)
+                            ),
+                          ),
+                          // Display the number of steps inside the progress circle
+                          Text(
+                            '${weeklySteps[index]}', // Show steps count for the day
+                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                }),
+              ),
+
+            ],
+          ),
         ),
       ),
     );
   }
+
+
+
 }
+
+
+class ProgressContainer extends StatelessWidget {
+  final Icon? iconPath;
+  final String label;
+  final String value;
+
+  ProgressContainer({ this.iconPath, required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox( height: 2,),
+
+      Icon(Icons.ac_unit,
+      size: 24,),
+
+        SizedBox( height: 4,),
+
+        Text(label),
+        SizedBox( height: 2,),
+
+
+        Text(value),
+      ],
+    );
+  }
+}
+

@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pedometer/pedometer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'SharedPrefsHelper.dart';
 
 class StepCounterScreen extends StatefulWidget {
   @override
@@ -29,8 +29,6 @@ class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindi
   @override
   void initState() {
     super.initState();
-    loadSavedData();
-
     WidgetsBinding.instance.addObserver(this);
     requestPermissions();
   }
@@ -99,6 +97,7 @@ class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindi
           distance = calculatedSteps * 0.762; // Average stride length in meters
         });
       }
+
     }
 
 
@@ -128,6 +127,19 @@ class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindi
     });
   }
 
+  
+
+
+
+
+
+  void onResumeTracking() {
+    setState(() {
+      isTracking = true;
+    });
+    startListening(); // Resume step tracking
+  }
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed && _stepCountSubscription?.isPaused == true) {
@@ -135,11 +147,13 @@ class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindi
     } else if (state == AppLifecycleState.paused) {
       _stepCountSubscription?.pause();
     }
+
+    if (state == AppLifecycleState.paused || state == AppLifecycleState.detached) {
+    }
   }
 
   @override
   void dispose() {
-    saveData(); // Save data on dispose
 
     WidgetsBinding.instance.removeObserver(this);
     _stepCountSubscription?.cancel();
@@ -166,39 +180,6 @@ class _StepCounterScreenState extends State<StepCounterScreen> with WidgetsBindi
 
 
 
-  // Store steps and calories for each day at midnight
-  void storeDailyData() async {
-    int todayIndex = DateTime.now().weekday - 1;
-    weeklySteps[todayIndex] = stepCount;
-    weeklyCalories[todayIndex] = calculateCalories(stepCount);
-    await saveData();
-  }
-
-  // Reset weekly data at 12:00 am every Sunday
-  void scheduleWeeklyReset() {
-    final now = DateTime.now();
-    final nextSundayMidnight = DateTime(now.year, now.month, now.day, 0, 0).add(Duration(days: 7 - now.weekday));
-    final durationUntilReset = nextSundayMidnight.difference(now);
-
-    Timer(durationUntilReset, () {
-      weeklySteps.fillRange(0, 7, 0);
-      weeklyCalories.fillRange(0, 7, 0.0);
-      saveData();  // Save reset data
-      scheduleWeeklyReset();  // Schedule the next weekly reset
-    });
-  }
-
-  // Save and load functions to persist weekly data
-  Future<void> saveData() async {
-    await SharedPrefsHelper.saveWeeklySteps(weeklySteps);
-    await SharedPrefsHelper.saveWeeklyCalories(weeklyCalories);
-  }
-
-  Future<void> loadSavedData() async {
-    weeklySteps = await SharedPrefsHelper.getWeeklySteps();
-    weeklyCalories = await SharedPrefsHelper.getWeeklyCalories();
-    setState(() {});
-  }
 
 
   @override
